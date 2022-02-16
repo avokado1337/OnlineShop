@@ -1,8 +1,11 @@
-﻿namespace Online_Shop.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Online_Shop.Models
 {
     public class CartItem
     {
-        public int Cartid { get; set; }
+        [Key]
+        public int CartId { get; set; }
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
         public int Quantity { get; set; }
