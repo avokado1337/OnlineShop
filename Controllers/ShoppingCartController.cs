@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Online_Shop.Data;
 using Online_Shop.Models;
 using System;
@@ -19,20 +20,43 @@ namespace Online_Shop.Controllers
             _context = context;
         }
 
-        [HttpPost]
-        public IEnumerable<CartItem> AddToCart(int id, int qnt)
+        [HttpGet]
+        public IEnumerable<CartItem> Get(int cartId)
         {
-            var product = _context.Products.First(p => p.ProductId.Equals(id));
-            _context.CartItems.Add(new CartItem
+            var cart = _context.Carts.Include(x => x.Items).First(x => x.Id == cartId);
+            var res = _context.CartItems.Where(x => x.CartId == cart.Id).Select(s => s.Product.ProductName).ToList();
+            return res;
+        }
+
+        [HttpPost("carts/{cartId}")]
+        public ActionResult<Cart> AddToCart(int cartId, int productId, int quantity)
+        {
+            var product = _context.Products.First(x => x.ProductId == productId);
+            var cart = _context.Carts.Include(x => x.Items).First(x => x.Id == cartId);
+            cart.Items.Add(new CartItem
             {
-                //Quantity = qnt,
-                //ProductId = id,
-                //List<Product> product = new List<Product>
-                //Products = product,
-                //State = CartState.Creating
+                Product = product,
+                Quantity = quantity,
+                CartId = cartId
             });
+
             _context.SaveChanges();
-            return _context.CartItems.ToList();
+            return cart;
+        }
+
+        [HttpPut("carts/{cartId}")]
+        public ActionResult<Cart> AddToExistingCart(int cartId, int productId, int quantity)
+        {
+            var product = _context.Products.First(x => x.ProductId == productId);
+            var cart = _context.Carts.Include(x => x.Items).First(x => x.Id == cartId);
+            cart.Items.Add(new CartItem
+            {
+                Product = product,
+                Quantity = quantity,
+            });
+
+            _context.SaveChanges();
+            return cart;
         }
     }
 }

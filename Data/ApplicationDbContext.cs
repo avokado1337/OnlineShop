@@ -13,6 +13,7 @@ namespace Online_Shop.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +34,8 @@ namespace Online_Shop.Data
                 );
 
             modelBuilder.Entity<CartItem>().ToTable("CartItem");
+            modelBuilder.Entity<Cart>().ToTable("Cart").HasData(
+                new Cart { Id = 1, State = CartState.Creating });
         }
 
 
