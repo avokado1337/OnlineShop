@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Online_Shop.Data;
 using Online_Shop.Models;
 using System;
@@ -19,9 +20,9 @@ namespace Online_Shop.Controllers
             _context = context;
         }
         [HttpGet]
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            var result = _context.Products.ToList();
+            var result = await _context.Products.ToListAsync();
             return result;
         }
     }

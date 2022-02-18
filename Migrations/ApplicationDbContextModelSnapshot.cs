@@ -48,7 +48,7 @@ namespace Online_Shop.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CartId")
+                    b.Property<int>("CartId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ProductId")
@@ -184,7 +184,9 @@ namespace Online_Shop.Migrations
                 {
                     b.HasOne("Online_Shop.Models.Cart", null)
                         .WithMany("Items")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Online_Shop.Models.Product", "Product")
                         .WithMany()

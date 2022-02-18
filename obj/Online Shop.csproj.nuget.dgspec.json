@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sultan-PC\\Desktop\\OnlineShop\\Online Shop.csproj": {}
+    "C:\\Users\\sultan.sarazbanov\\Desktop\\Online Shop\\Online Shop\\Online Shop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sultan-PC\\Desktop\\OnlineShop\\Online Shop.csproj": {
+    "C:\\Users\\sultan.sarazbanov\\Desktop\\Online Shop\\Online Shop\\Online Shop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sultan-PC\\Desktop\\OnlineShop\\Online Shop.csproj",
+        "projectUniqueName": "C:\\Users\\sultan.sarazbanov\\Desktop\\Online Shop\\Online Shop\\Online Shop.csproj",
         "projectName": "Online Shop",
-        "projectPath": "C:\\Users\\Sultan-PC\\Desktop\\OnlineShop\\Online Shop.csproj",
-        "packagesPath": "C:\\Users\\Sultan-PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sultan-PC\\Desktop\\OnlineShop\\obj\\",
+        "projectPath": "C:\\Users\\sultan.sarazbanov\\Desktop\\Online Shop\\Online Shop\\Online Shop.csproj",
+        "packagesPath": "C:\\Users\\sultan.sarazbanov\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sultan.sarazbanov\\Desktop\\Online Shop\\Online Shop\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Sultan-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sultan.sarazbanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -80,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }

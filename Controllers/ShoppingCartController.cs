@@ -20,43 +20,58 @@ namespace Online_Shop.Controllers
             _context = context;
         }
 
+        //Показать всю корзину
         [HttpGet]
-        public IEnumerable<CartItem> Get(int cartId)
+        public async Task<ActionResult<Cart>> GetAsync(int cartId)
         {
-            var cart = _context.Carts.Include(x => x.Items).First(x => x.Id == cartId);
-            var res = _context.CartItems.Where(x => x.CartId == cart.Id).Select(s => s.Product.ProductName).ToList();
-            return res;
-        }
-
-        [HttpPost("carts/{cartId}")]
-        public ActionResult<Cart> AddToCart(int cartId, int productId, int quantity)
-        {
-            var product = _context.Products.First(x => x.ProductId == productId);
-            var cart = _context.Carts.Include(x => x.Items).First(x => x.Id == cartId);
-            cart.Items.Add(new CartItem
-            {
-                Product = product,
-                Quantity = quantity,
-                CartId = cartId
-            });
-
-            _context.SaveChanges();
+            var cart = await _context.Carts.Include(x => x.Items).ThenInclude(e => e.Product).FirstAsync(x => x.Id == cartId);
             return cart;
         }
 
+
+        //Добавить товар в корзину
         [HttpPut("carts/{cartId}")]
-        public ActionResult<Cart> AddToExistingCart(int cartId, int productId, int quantity)
+        public async Task<ActionResult<Cart>> AddToExistingCartAsync(int cartId, int productId, int quantity)
         {
-            var product = _context.Products.First(x => x.ProductId == productId);
-            var cart = _context.Carts.Include(x => x.Items).First(x => x.Id == cartId);
+            var product = await _context.Products.FirstAsync(x => x.ProductId == productId);
+            var cart =  await _context.Carts.Include(x => x.Items).ThenInclude(i => i.Product).FirstAsync(x => x.Id == cartId);
             cart.Items.Add(new CartItem
             {
                 Product = product,
                 Quantity = quantity,
             });
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return cart;
         }
+
+        //Удалить товар из корзины
+        [HttpDelete("carts/{cartId}/items/{itemId}")]
+        public async Task<ActionResult<Cart>> DeleteItemFromCartAsync(int cartId, int itemId)
+        {
+            var cartItem = await _context.CartItems.FirstAsync(x => x.Id == itemId);
+
+            var cart = await _context.Carts.Include(x => x.Items).ThenInclude(i => i.Product).FirstAsync(x => x.Id == cartId);
+
+            cart.Items.Remove(cartItem);
+
+            await _context.SaveChangesAsync();
+
+            return cart;
+
+        }
+
+        [HttpDelete("carts/{cartId}")]
+        public async Task<ActionResult<Cart>> DeleteAllItemsAsync(int cartId)
+        {
+            var cart = await _context.Carts.Include(x => x.Items).ThenInclude(i => i.Product).FirstAsync(x => x.Id == cartId);
+
+            cart.Items.Clear();
+
+            await _context.SaveChangesAsync();
+
+            return cart;
+        }
+
     }
 }
